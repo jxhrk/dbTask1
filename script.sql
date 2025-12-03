@@ -10,17 +10,19 @@ CREATE TABLE disciplines (
 );
 GO
 
+--категория согласно приказу
 CREATE TABLE equipment_categories (
     category_id INT IDENTITY(1,1) PRIMARY KEY,
-    code VARCHAR(20) NOT NULL,
-    name VARCHAR(100) NOT NULL
+    code VARCHAR(20) NOT NULL, --номер категории согласно приказу
+    name VARCHAR(100) NOT NULL --название категории согласно приказу
 );
 GO
 
+--подкатегория, указывающая, является ли оборудование основным или дополнительным
 CREATE TABLE equipment_subcategories (
     subcategory_id INT IDENTITY(1,1) PRIMARY KEY,
     category_id INT,
-    is_mandatory BIT DEFAULT 1,
+    is_mandatory BIT DEFAULT 1, --1 - основное; 0 - дополнительное
     FOREIGN KEY (category_id) REFERENCES equipment_categories(category_id) ON DELETE NO ACTION
 );
 GO
@@ -76,4 +78,5 @@ CREATE TABLE tech_specs (
     equipment_id INT NOT NULL,
     FOREIGN KEY (equipment_id) REFERENCES equipments(equipment_id) ON DELETE NO ACTION
 );
+
 GO
